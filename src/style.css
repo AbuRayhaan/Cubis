@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: antiquewhite;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: black !important;
+}
+
+.site-header {
+  background-color: orange;
+  color: black;
+}
+
+.hero1 {
+  background: url('../src/assets/images/beef.png') no-repeat left bottom;
+}
+
+.hero2 {
+  background: url('../src/assets/images/miscellaneous.png') no-repeat right bottom;
+}
+
+.showbtn {
+  cursor: pointer;
+  background: salmon;
+  border: 2px solid white;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.actions button {
+  background: none;
+  cursor: pointer;
+  border: none;
+  color: black;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.actions button:hover {
+  border-bottom: 2px solid black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  width: 90%;
+  gap: 20px;
+  overflow-x: scroll;
+}
+
+.mainTitle {
+  font-size: 50px;
+}
+
+.singleContainer {
+  background-color: antiquewhite;
+  padding: 20px;
+}
+
+.singleContainer img {
+  display: block;
+}
+
+.description {
+  max-height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 25px;
+}
+
+.mealImg {
+  cursor: pointer;
+  max-width: 90%;
+  border-radius: 15px;
+}
+
+.mealContent {
+  width: 40%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.fa-thumbs-up {
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.fa-thumbs-up:hover {
+  transform: rotate(-15deg);
+}
+
+.fa-thumbs-up.active {
+  color: salmon;
+}
+
+.commentModal {
+  display: none;
+}
+
+.commentModal.active {
+  background-color: antiquewhite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 150px 50px 50px 50px;
+  display: flex;
+  flex-flow: wrap;
+  gap: 40px;
+  overflow: scroll;
+}
+
+.topDiv img {
+  width: 500px;
+}
+
+.commentform {
+  width: 50%;
+}
+
+.commentform form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fa-xmark {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  font-size: 30px;
+}
+
+.copyrigth {
+  gap: 120px;
+}
+
+.fa-xmark:hover {
+  color: salmon;
+  transform: rotate(-30deg);
+}
+
+.commentMsg {
+  margin-bottom: 15px;
+  border-radius: 15px;
+  padding: 7px;
+  border: 1px solid salmon;
+  font-size: 14px;
+}
+
+.commentName {
+  font-size: 13px;
+  color: salmon;
+  margin-left: 20px;
+}
+
+input.username,
+input.comment {
+  background-color: antiquewhite;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid white;
+  padding: 10px;
+}
+
+.submitBtn {
+  background: salmon;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  align-self: center;
+}
+
+footer {
+  max-width: 100% !important;
+  margin: 0 !important;
+  background: #ededed;
+}
