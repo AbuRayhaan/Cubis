@@ -2,6 +2,7 @@ import * as Involve from './fetchInvolvementAPI.js';
 import countLike from './countLikes.js';
 import countMeals from './countMeals.js';
 import countComments from './countComments.js';
+import countReservations from './countReservations.js';
 
 const main = document.querySelector('.main');
 const apiBase = 'https://www.themealdb.com/api/json/v1/1';
@@ -35,6 +36,7 @@ const loadMealbyCategorie = async (mealData, categorieName) => {
         <h5 class="mealName card-title">${item.strMeal} </h5>
         <p class ="${item.idMeal} card-text"> <i class="fa-solid fa-thumbs-up"><span class="count">  ${count}<span> </i> </p>
         <button class="${item.idMeal} commentBtn btn btn-warning" name="button">Comment </button>
+        <button class="${item.idMeal} reservationBtn btn btn-success" name="button">Reservation </button>
       </div>
     </div>
     `;
@@ -43,6 +45,7 @@ const loadMealbyCategorie = async (mealData, categorieName) => {
 
   const likeIcone = document.querySelectorAll('.fa-thumbs-up');
   const commentBtn = document.querySelectorAll('.commentBtn');
+  const reservationBtn = document.querySelectorAll('.reservationBtn');
 
   likeIcone.forEach((item) => {
     item.addEventListener('click', (e) => {
@@ -58,6 +61,64 @@ const loadMealbyCategorie = async (mealData, categorieName) => {
     }
   });
 
+  reservationBtn.forEach((item) => {
+    item.addEventListener('click', async (e) => {
+      const itemId = e.target.classList[0];
+      const meal = await getMealById(itemId);
+      const reservations = await Involve.getReservation(itemId);
+      document.querySelectorAll('.container').forEach((i) => { i.classList.add('active'); });
+      document.querySelector('.hero2').classList.add('active');
+      document.querySelector('.resevationModal').classList.add('active');
+      document.querySelector('.resevationModal').innerHTML = `
+          <div class="card" style="width: 18rem;">
+            <i class="fa-solid fa-xmark closeReserv"></i>
+            <img class="card-img-top" src="${meal.strMealThumb}" alt="Card image cap">
+            <div class="card-body">
+              <h3 class="card-title ">${meal.strMeal} - $15 </h3>
+              <small>we have ${countReservations(reservations)} reservation for this</small>
+              <hr/>
+              <form>
+                  <p class="text-weight-bold text-success" >Make Reservation Now and get it delivered in 14 mins </p>
+                  <div class="form-group mb-1">
+                    <input
+                    type="text"
+                    class="reservationName form-control"
+                    id="exampleInputName"
+                    placeholder="Enter your name">
+                  </div>
+                  <div class="form-group mb-1">
+                    <input
+                    type="email"
+                    class="reservationEmail form-control"
+                    id="exampleInputEmail1"
+                    placeholder="Enter your email">
+                  </div>
+                  <button class="btn btn-success submitReservation">Submit</button>
+                </form>
+            </div>
+          </div>
+      `;
+      document.querySelector('.closeReserv').addEventListener('click', () => {
+        document.querySelectorAll('.container').forEach((i) => { i.classList.remove('active'); });
+        document.querySelector('.hero2').classList.remove('active');
+        document.querySelector('.resevationModal').classList.remove('active');
+      });
+
+      document.querySelector('.submitReservation').addEventListener('click', (e) => {
+        e.preventDefault();
+        const username = document.querySelector('.reservationName');
+        Involve.addReservation(itemId, username.value);
+        document.querySelectorAll('.container').forEach((i) => { i.classList.remove('active'); });
+        document.querySelector('.hero2').classList.remove('active');
+        document.querySelector('.resevationModal').classList.remove('active');
+        document.querySelector('.alert-success').style.display = 'block';
+        document.querySelector('.close').addEventListener('click', () => {
+          document.querySelector('.alert-success').style.display = 'none';
+        });
+      });
+    });
+  });
+
   commentBtn.forEach((item) => {
     item.addEventListener('click', async (e) => {
       const itemId = e.target.classList[0];
@@ -66,7 +127,7 @@ const loadMealbyCategorie = async (mealData, categorieName) => {
       document.querySelector('.commentModal').classList.add('active');
       document.querySelector('.commentModal').innerHTML = `
       <div class="topDiv">
-      <i class="fa-solid fa-xmark"></i>
+        <i class="fa-solid fa-xmark closeComment"></i>
         <img src="${meal.strMealThumb}" alt="">
       </div>
         <div class="commentform">
@@ -122,7 +183,7 @@ const loadMealbyCategorie = async (mealData, categorieName) => {
         });
       }
 
-      document.querySelector('.fa-xmark').addEventListener('click', () => {
+      document.querySelector('.closeComment').addEventListener('click', () => {
         document.querySelector('.commentModal').classList.remove('active');
       });
 
@@ -194,7 +255,7 @@ const addCategorieMeal = (mealData) => {
 
     main.appendChild(div);
 
-    const showbtn = document.querySelectorAll('button');
+    const showbtn = document.querySelectorAll('.showbtn');
     showbtn.forEach((item) => {
       item.addEventListener('click', (e) => {
         const categorieName = e.target.parentElement.querySelector('.categorieName');

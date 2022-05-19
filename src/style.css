@@ -41,6 +41,11 @@ a {
   background: url('../src/assets/images/miscellaneous.png') no-repeat right bottom;
 }
 
+.hero2.active {
+  filter: blur(20px);
+  position: fixed;
+}
+
 .showbtn {
   cursor: pointer;
   background: salmon;
@@ -61,6 +66,11 @@ a {
 
 .actions button:hover {
   border-bottom: 2px solid black;
+}
+
+.container.active {
+  filter: blur(20px);
+  position: fixed;
 }
 
 .container {
@@ -204,4 +214,23 @@ footer {
   max-width: 100% !important;
   margin: 0 !important;
   background: #ededed;
+}
+
+.resevationModal {
+  display: none;
+}
+
+.resevationModal.active {
+  display: block;
+  z-index: 100;
+  position: fixed;
+  width: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.alert-success {
+  display: none;
+  text-align: center;
 }
